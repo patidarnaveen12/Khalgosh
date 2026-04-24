@@ -904,9 +904,9 @@ footer {
 <div class="thankyou-overlay" id="thankYou">
   <div class="thankyou-card">
     <span class="thankyou-emoji">✨</span>
-    <div class="thankyou-title">You're on the list!</div>
+    <div class="thankyou-title">Thank you for joining<br/>the waitlist!</div>
     <p class="thankyou-sub">
-      Thank you for joining the Khalgosh waitlist. We'll be in touch soon — your spare change is about to start working a lot harder for you.
+      We'll be in touch soon — your spare change is about to start working a lot harder for you.
     </p>
     <div style="background: var(--gold-pale); border-radius: 14px; padding: 1rem; margin-bottom: 1.5rem;">
       <div style="font-size: 0.7rem; color: var(--text-light); margin-bottom: 0.3rem;">Your position</div>
@@ -915,6 +915,168 @@ footer {
     <button class="thankyou-close" onclick="document.getElementById('thankYou').classList.remove('active')">Back to Khalgosh</button>
   </div>
 </div>
+
+<!-- JOIN MODAL -->
+<div class="join-overlay" id="joinModal">
+  <div class="join-card">
+    <button class="join-close-x" onclick="closeJoinModal()" aria-label="Close">&times;</button>
+    <div class="join-header">
+      <span class="join-emoji">🐰</span>
+      <div class="join-title">Join Khalgosh</div>
+      <p class="join-sub">Be first in line. We'll send you early access the moment we launch.</p>
+    </div>
+
+    <div class="join-field">
+      <label for="joinEmail">Email address</label>
+      <input id="joinEmail" type="email" placeholder="you@example.com" autocomplete="email" />
+    </div>
+
+    <div class="join-error" id="joinError"></div>
+
+    <button class="btn-gold join-submit" onclick="submitJoin()">Join the waitlist</button>
+
+    <div class="join-privacy">🔒 We'll never share your info. Unsubscribe anytime.</div>
+  </div>
+</div>
+
+<style>
+.join-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(30,24,10,0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.join-overlay.active { display: flex; }
+
+.join-card {
+  background: #fff;
+  border-radius: 28px;
+  padding: 2.5rem 2.2rem 2rem;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.15);
+  border: 1px solid var(--border-soft);
+  animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  position: relative;
+}
+
+.join-close-x {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--text-light);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  line-height: 1;
+  border-radius: 50%;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.join-close-x:hover {
+  background: var(--gold-pale);
+  color: var(--text);
+}
+
+.join-header {
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+.join-emoji {
+  font-size: 2.4rem;
+  display: inline-block;
+  margin-bottom: 0.6rem;
+}
+.join-title {
+  font-family: 'Lora', serif;
+  font-size: 1.7rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.join-sub {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.join-field {
+  margin-bottom: 1rem;
+}
+.join-field label {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+.join-field input {
+  width: 100%;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--warm-white);
+  transition: all 0.2s;
+  outline: none;
+}
+.join-field input::placeholder { color: var(--text-light); }
+.join-field input:focus {
+  border-color: var(--gold);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(200,146,42,0.12);
+}
+.join-field input.error {
+  border-color: #E05050;
+  box-shadow: 0 0 0 3px rgba(224,80,80,0.1);
+}
+
+.join-error {
+  font-size: 0.78rem;
+  color: #C04040;
+  text-align: center;
+  min-height: 1.1rem;
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
+
+.join-submit {
+  width: 100%;
+  padding: 0.95rem !important;
+  font-size: 0.95rem !important;
+  margin-top: 0.3rem;
+}
+
+.join-privacy {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-light);
+  margin-top: 1rem;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 500px) {
+  .join-card { padding: 2rem 1.5rem 1.5rem; }
+  .join-title { font-size: 1.5rem; }
+}
+</style>
 
 <!-- NAV -->
 <nav>
@@ -927,7 +1089,7 @@ footer {
     <li><a href="#metals">Metals</a></li>
     <li><a href="#chart">Performance</a></li>
   </ul>
-  <button class="nav-btn" onclick="showWaitlist()">Join Waitlist</button>
+  <button class="nav-btn" onclick="openJoinModal()">Join</button>
 </nav>
 
 <!-- HERO -->
@@ -945,7 +1107,7 @@ footer {
   </p>
 
   <div class="hero-actions">
-    <button class="btn-gold" onclick="showWaitlist()">Join the Waitlist — It's Free</button>
+    <button class="btn-gold" onclick="openJoinModal()">Join — It's Free</button>
     <button class="btn-outline" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See how it works</button>
   </div>
 
@@ -1654,9 +1816,8 @@ footer {
     <h2 class="waitlist-title">Start growing your<br><em>gold today.</em></h2>
     <p class="waitlist-sub">Join thousands already on the Khalgosh waitlist. Be first to turn your everyday spending into a precious metals portfolio — no expertise needed.</p>
 
-    <div class="waitlist-form">
-      <input class="waitlist-input" id="emailInput" type="email" placeholder="your@email.com" />
-      <button class="btn-gold" onclick="handleJoin()">Join Waitlist</button>
+    <div style="display:flex;justify-content:center;margin-top:2rem;">
+      <button class="btn-gold" onclick="openJoinModal()" style="padding:1rem 3rem;font-size:1.05rem;">Join</button>
     </div>
     <div class="waitlist-note">Free forever on the basic plan. No credit card required. Launching Q4 2026.</div>
   </div>
@@ -1781,28 +1942,85 @@ footer {
     }
   });
 
-  // Waitlist join
-  function handleJoin() {
-    const input = document.getElementById('emailInput');
-    const email = input.value.trim();
-    if (!email || !email.includes('@')) {
-      input.style.borderColor = '#E05050';
-      input.style.boxShadow = '0 0 0 3px rgba(224,80,80,0.1)';
-      setTimeout(() => {
-        input.style.borderColor = '';
-        input.style.boxShadow = '';
-      }, 1500);
-      return;
-    }
-    const num = Math.floor(Math.random() * 500) + 2600;
-    document.getElementById('waitlistNum').textContent = num.toLocaleString();
-    document.getElementById('thankYou').classList.add('active');
-    input.value = '';
+  // Open & close the Join modal
+  function openJoinModal() {
+    document.getElementById('joinError').textContent = '';
+    document.getElementById('joinEmail').classList.remove('error');
+    document.getElementById('joinModal').classList.add('active');
+    setTimeout(() => document.getElementById('joinEmail').focus(), 100);
+  }
+  function closeJoinModal() {
+    document.getElementById('joinModal').classList.remove('active');
   }
 
-  function showWaitlist() {
-    document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => document.getElementById('emailInput').focus(), 600);
+  // Close modal when clicking the dark backdrop (but not the card itself)
+  document.getElementById('joinModal').addEventListener('click', function(e) {
+    if (e.target === this) closeJoinModal();
+  });
+
+  // Close with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeJoinModal();
+      document.getElementById('thankYou').classList.remove('active');
+    }
+  });
+
+  // Email validation, send to Formspree, then show thank-you
+  async function submitJoin() {
+    const emailEl = document.getElementById('joinEmail');
+    const errorEl = document.getElementById('joinError');
+    const submitBtn = document.querySelector('.join-submit');
+    const email = emailEl.value.trim();
+
+    emailEl.classList.remove('error');
+    errorEl.textContent = '';
+
+    // Basic email validation
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (!emailValid) {
+      errorEl.textContent = 'Please enter a valid email address.';
+      emailEl.classList.add('error');
+      return;
+    }
+
+    // Disable button while submitting
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Joining...';
+
+    try {
+      // Send email to Formspree
+      const response = await fetch('https://formspree.io/f/xwvaajvw', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          source: 'Khalgosh Waitlist Landing Page'
+        })
+      });
+
+      if (response.ok) {
+        // Success — close modal, show thank-you overlay
+        const num = Math.floor(Math.random() * 500) + 2600;
+        document.getElementById('waitlistNum').textContent = num.toLocaleString();
+        closeJoinModal();
+        document.getElementById('thankYou').classList.add('active');
+        emailEl.value = '';
+      } else {
+        errorEl.textContent = 'Something went wrong. Please try again.';
+        emailEl.classList.add('error');
+      }
+    } catch (error) {
+      errorEl.textContent = 'Network error. Please check your connection and try again.';
+      emailEl.classList.add('error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Join the waitlist';
+    }
   }
 
   // Scroll reveal
